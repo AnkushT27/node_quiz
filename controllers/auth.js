@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 exports.login = async (req,res,next)=>{
   let user = await User.findOne({email:req.body.email})
   if(!user){
-      res.staus(404).send({"message":"User Not Found"})
+      res.status(404).send({"message":"User Not Found"})
   }
   else{
       let isValidPassword = await bcrypt.compare(req.body.password,user.password)
@@ -18,7 +18,6 @@ exports.login = async (req,res,next)=>{
       }
       else{
           const err = new Error('Password does not match')
-          err.statusCode = 401
           next(err)
       }
   }
