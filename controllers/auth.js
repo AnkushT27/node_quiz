@@ -10,7 +10,7 @@ exports.login = async (req,res,next)=>{
       let isValidPassword = await bcrypt.compare(req.body.password,user.password)
       if(isValidPassword){
         const token = jwt.sign({
-            email : user.email
+            id : user._id
         },'quiztoken',{expiresIn:'1h'})
         res.status(200).json({
             token:token
